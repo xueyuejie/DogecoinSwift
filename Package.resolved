@@ -1,0 +1,59 @@
+{
+  "pins" : [
+    {
+      "identity" : "base58swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mathwallet/Base58Swift.git",
+      "state" : {
+        "revision" : "04ccae070ac6f3117db11af864a04229f7c1e025",
+        "version" : "0.0.1"
+      }
+    },
+    {
+      "identity" : "bigint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/attaswift/BigInt.git",
+      "state" : {
+        "revision" : "114343a705df4725dfe7ab8a2a326b8883cfd79c",
+        "version" : "5.5.1"
+      }
+    },
+    {
+      "identity" : "bip39swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mathwallet/BIP39swift",
+      "state" : {
+        "revision" : "6e654c1fedac7dc3f01443d8bdf108ab6d50245d",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "state" : {
+        "revision" : "729e01bc9b9dab466ac85f21fb9ee2bc1c61b258",
+        "version" : "1.8.4"
+      }
+    },
+    {
+      "identity" : "ripemdswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mathwallet/RIPEMDSwift.git",
+      "state" : {
+        "revision" : "1a9b1487d1880585c8cc46e26b6d9838184f7858",
+        "version" : "0.0.1"
+      }
+    },
+    {
+      "identity" : "secp256k1swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mathwallet/Secp256k1Swift",
+      "state" : {
+        "revision" : "3eac0ee49d57eaf0d91d54df876194cdd0c971fe",
+        "version" : "2.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}
