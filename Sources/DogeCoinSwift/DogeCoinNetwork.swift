@@ -1,6 +1,6 @@
 //
 //  DogeCoinNetwork.swift
-//  DogeSwift
+//  DogeCoinSwift
 //
 //  Created by xgblin on 2025/1/7.
 //

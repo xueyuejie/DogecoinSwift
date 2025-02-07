@@ -2,7 +2,7 @@ import XCTest
 import Base58Swift
 @testable import DogeCoinSwift
 
-final class DogeSwiftTests: XCTestCase {
+final class DogeCoinSwiftTests: XCTestCase {
     func testExample() throws {
         let mne = "sell athlete diagram club oppose upgrade dinner bonus away rug normal umbrella"
         let rootKey = DogeCoinKey.fromMnemonics(mne)!
