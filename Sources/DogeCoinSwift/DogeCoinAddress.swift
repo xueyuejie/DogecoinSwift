@@ -25,7 +25,7 @@ public struct DogeCoinAddress {
         return self.addressData?.bytes.base58CheckEncodedString
     }
     
-    init(publicKey: Data, network: DogeCoinNetwork) {
+    public init(publicKey: Data, network: DogeCoinNetwork) {
         self.publicKey = publicKey
         self.network = network
     }

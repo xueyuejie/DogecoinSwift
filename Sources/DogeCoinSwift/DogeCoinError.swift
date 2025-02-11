@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  DogeCoinError.swift
 //  DogeCoinSwift
 //
 //  Created by xgblin on 2025/1/7.
