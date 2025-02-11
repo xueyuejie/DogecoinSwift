@@ -46,14 +46,14 @@ public struct DogeCoinKey {
     
     public func derive(path: String) throws -> DogeCoinKey {
         guard let childNode = node.derive(path: path) else {
-            throw DogeCoinError.invalidDerivePath
+            throw DogeError.invalidDerivePath
         }
         return DogeCoinKey(node: childNode)
     }
     
     public func derive(index: UInt32, hardened: Bool = false) throws -> DogeCoinKey {
         guard let childNode = node.derive(index: index, derivePrivateKey: true, hardened: hardened) else {
-            throw DogeCoinError.invalidDerivePath
+            throw DogeError.invalidDerivePath
         }
         return DogeCoinKey(node: childNode)
     }

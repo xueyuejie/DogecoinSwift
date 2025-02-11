@@ -7,6 +7,6 @@
 
 import Foundation
 
-public enum DogeCoinError: Error {
+public enum DogeError: Error {
     case invalidDerivePath
 }
