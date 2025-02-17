@@ -1,13 +1,13 @@
 //
-//  DogeCoinNetwork.swift
-//  DogeCoinSwift
+//  DogecoinNetwork.swift
+//  DogecoinSwift
 //
 //  Created by xgblin on 2025/1/7.
 //
 
 import Foundation
 
-public enum DogeCoinNetwork: String {
+public enum DogecoinNetwork: String {
     case mainnet
     case testnet
     

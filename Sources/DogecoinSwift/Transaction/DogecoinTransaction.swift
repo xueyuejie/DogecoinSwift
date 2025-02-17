@@ -1,6 +1,6 @@
 //
 //  DogeTransaction.swift
-//  DogeCoinSwift
+//  DogecoinSwift
 //
 //  Created by 薛跃杰 on 2025/2/6.
 //
@@ -8,17 +8,17 @@
 import Foundation
 import BigInt
 
-public struct DogeCoinTransaction {
+public struct DogecoinTransaction {
     public let version: UInt32
     public let flag: UInt16 = 0x00001
     public var txInCount: UInt8 {
         return UInt8(inputs.count)
     }
-    public var inputs: [DogeCoinInput]
+    public var inputs: [DogecoinInput]
     public var txOutCount: UInt8 {
         return UInt8(outputs.count)
     }
-    public var outputs: [DogeCoinOutput]
+    public var outputs: [DogecoinOutput]
     public let lockTime: UInt32
     
     public let zero: Data = Data(repeating: 0, count: 32)
@@ -30,8 +30,8 @@ public struct DogeCoinTransaction {
     public var value = BigUInt(0)
     
     public init(version: UInt32,
-                inputs:[DogeCoinInput] = [DogeCoinInput](),
-                outputs:[DogeCoinOutput] = [DogeCoinOutput](),
+                inputs:[DogecoinInput] = [DogecoinInput](),
+                outputs:[DogecoinOutput] = [DogecoinOutput](),
                 lockTime: UInt32) {
         self.version = version
         self.inputs = inputs
@@ -39,11 +39,11 @@ public struct DogeCoinTransaction {
         self.lockTime = lockTime
     }
 
-    public mutating func addInput(input: DogeCoinInput) {
+    public mutating func addInput(input: DogecoinInput) {
         inputs.append(input)
     }
     
-    public mutating func addOutput(output:DogeCoinOutput) {
+    public mutating func addOutput(output:DogecoinOutput) {
         outputs.append(output)
     }
     

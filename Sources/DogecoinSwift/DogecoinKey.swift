@@ -3,7 +3,7 @@ import BIP39swift
 import BIP32Swift
 import Secp256k1Swift
 
-public struct DogeCoinKey {
+public struct DogecoinKey {
     private var node: HDNode
     
     public var publicKey: Data {
@@ -25,7 +25,7 @@ public struct DogeCoinKey {
         guard let rootNode = HDNode(seed: seed) else {
             return nil
         }
-       return DogeCoinKey(node: rootNode)
+       return DogecoinKey(node: rootNode)
     }
     
     public func serializePublicKeyString(version: HDNode.HDversion) -> String? {
@@ -44,17 +44,17 @@ public struct DogeCoinKey {
         return node.serialize(serializePublic: false, version: version)
     }
     
-    public func derive(path: String) throws -> DogeCoinKey {
+    public func derive(path: String) throws -> DogecoinKey {
         guard let childNode = node.derive(path: path) else {
-            throw DogeError.invalidDerivePath
+            throw DogecoinError.invalidDerivePath
         }
-        return DogeCoinKey(node: childNode)
+        return DogecoinKey(node: childNode)
     }
     
-    public func derive(index: UInt32, hardened: Bool = false) throws -> DogeCoinKey {
+    public func derive(index: UInt32, hardened: Bool = false) throws -> DogecoinKey {
         guard let childNode = node.derive(index: index, derivePrivateKey: true, hardened: hardened) else {
-            throw DogeError.invalidDerivePath
+            throw DogecoinError.invalidDerivePath
         }
-        return DogeCoinKey(node: childNode)
+        return DogecoinKey(node: childNode)
     }
 }

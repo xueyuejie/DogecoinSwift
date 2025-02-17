@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "DogeCoinSwift",
+    name: "DogecoinSwift",
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
+        // Products define the executables and libraries a package produces, making them visible to other packages.ccb
         .library(
-            name: "DogeCoinSwift",
-            targets: ["DogeCoinSwift"]),
+            name: "DogecoinSwift",
+            targets: ["DogecoinSwift"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -21,11 +21,11 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "DogeCoinSwift",
+            name: "DogecoinSwift",
             dependencies: ["CryptoSwift", "BIP39swift", "Secp256k1Swift", .product(name: "BIP32Swift", package: "Secp256k1Swift")]),
         .testTarget(
-            name: "DogeCoinSwiftTests",
-            dependencies: ["DogeCoinSwift"]
+            name: "DogecoinSwiftTests",
+            dependencies: ["DogecoinSwift"]
         ),
     ]
 )

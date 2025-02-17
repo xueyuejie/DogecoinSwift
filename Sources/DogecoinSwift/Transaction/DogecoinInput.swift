@@ -1,24 +1,24 @@
 //
-//  DogeCoinInput.swift
-//  DogeCoinSwift
+//  DogecoinInput.swift
+//  DogecoinSwift
 //
 //  Created by 薛跃杰 on 2025/2/6.
 //
 
 import Foundation
 
-public struct DogeCoinInput {
+public struct DogecoinInput {
     public var pub:String
     public var path:String
     
-    public let address: DogeCoinAddress
+    public let address: DogecoinAddress
     public let prev_hash: Data
     public let index: UInt32
     public let value: UInt64
     public let sequence: UInt32
     public var signatureScript: Data
     
-    public init(address: DogeCoinAddress,
+    public init(address: DogecoinAddress,
          prev_hash: Data,
          index: UInt32,
          value: UInt64,

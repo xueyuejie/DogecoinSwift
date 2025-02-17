@@ -1,19 +1,19 @@
 //
-//  DogeCoinOutput.swift
-//  DogeCoinSwift
+//  DogecoinOutput.swift
+//  DogecoinSwift
 //
 //  Created by 薛跃杰 on 2025/2/6.
 //
 
 import Foundation
 
-public struct DogeCoinOutput {
+public struct DogecoinOutput {
     public let value: UInt64
-    public let address: DogeCoinAddress
+    public let address: DogecoinAddress
     
     private let addressData: Data
 
-    public init?(value: UInt64, address: DogeCoinAddress) {
+    public init?(value: UInt64, address: DogecoinAddress) {
         guard let addressData = address.addressData else {
             return nil
         }

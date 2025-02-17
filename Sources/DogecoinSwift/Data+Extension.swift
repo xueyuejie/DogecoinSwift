@@ -1,6 +1,6 @@
 //
 //  Data+Extension.swift
-//  DogeCoinSwift
+//  DogecoinSwift
 //
 //  Created by xgblin on 2025/1/7.
 //

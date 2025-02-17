@@ -1,15 +1,15 @@
 //
-//  DogeCoinAddress.swift
-//  DogeCoinSwift
+//  DogecoinAddress.swift
+//  DogecoinSwift
 //
 //  Created by xgblin on 2025/1/7.
 //
 
 import Foundation
 
-public struct DogeCoinAddress {
+public struct DogecoinAddress {
     public let publicKey: Data
-    public let network: DogeCoinNetwork
+    public let network: DogecoinNetwork
     public var addressData: Data? {
         guard let hash = publicKey.hash160() else {
             return nil
@@ -25,7 +25,7 @@ public struct DogeCoinAddress {
         return self.addressData?.bytes.base58CheckEncodedString
     }
     
-    public init(publicKey: Data, network: DogeCoinNetwork) {
+    public init(publicKey: Data, network: DogecoinNetwork) {
         self.publicKey = publicKey
         self.network = network
     }
@@ -34,13 +34,13 @@ public struct DogeCoinAddress {
         return address.base58CheckDecodedData
     }
     
-    public static func encodeAddress(_ addressData: Data,network: DogeCoinNetwork = .mainnet) -> String? {
+    public static func encodeAddress(_ addressData: Data,network: DogecoinNetwork = .mainnet) -> String? {
         guard addressData.count == 1 + 20, addressData.prefix(1) == network.pubKeyHashPrefix else { return nil }
         return addressData.bytes.base58CheckEncodedString
     }
     
-    public static func isValidAddress(_ address: String, network: DogeCoinNetwork = .mainnet) -> Bool {
-        guard let data = DogeCoinAddress.decodeAddress(address) else { return false }
+    public static func isValidAddress(_ address: String, network: DogecoinNetwork = .mainnet) -> Bool {
+        guard let data = DogecoinAddress.decodeAddress(address) else { return false }
         guard data.count == 1 + 20, data.prefix(1) == network.pubKeyHashPrefix else { return false }
         return true
     }
