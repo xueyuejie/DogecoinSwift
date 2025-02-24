@@ -8,24 +8,23 @@
 import Foundation
 
 public struct DogecoinInput {
-    public var pub:String
-    public var path:String
-    
-    public let address: DogecoinAddress
+    public var pub: String
+    public var path: String
+    public let address: String
     public let prev_hash: Data
     public let index: UInt32
     public let value: UInt64
     public let sequence: UInt32
     public var signatureScript: Data
     
-    public init(address: DogecoinAddress,
+    public init(address: String,
          prev_hash: Data,
          index: UInt32,
          value: UInt64,
          signatureScript: Data,
          sequence: UInt32 = 0xffffffff,
-         pub:String = "",
-         path:String = "") {
+         pub: String = "",
+         path: String = "") {
         self.address = address
         self.prev_hash = prev_hash
         self.index = index

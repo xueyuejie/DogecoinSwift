@@ -9,16 +9,14 @@ import Foundation
 
 public struct DogecoinOutput {
     public let value: UInt64
-    public let address: DogecoinAddress
     
     private let addressData: Data
 
-    public init?(value: UInt64, address: DogecoinAddress) {
-        guard let addressData = address.addressData else {
+    public init?(value: UInt64, address: String) {
+        guard let addressData = DogecoinAddress.decodeAddress(address) else {
             return nil
         }
         self.value = value
-        self.address = address
         self.addressData = addressData
     }
     
