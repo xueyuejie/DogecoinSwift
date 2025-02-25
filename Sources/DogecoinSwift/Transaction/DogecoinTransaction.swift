@@ -28,6 +28,8 @@ public struct DogecoinTransaction {
     public var fee = BigUInt(0)
     
     public var value = BigUInt(0)
+    /// Signature Hash Helper
+    public let sighashHelper: DogecoinSignatureHashHelper
     
     public init(version: UInt32,
                 inputs:[DogecoinInput] = [DogecoinInput](),
@@ -37,6 +39,7 @@ public struct DogecoinTransaction {
         self.inputs = inputs
         self.outputs = outputs
         self.lockTime = lockTime
+        self.sighashHelper = DogecoinSignatureHashHelper(hashType: .ALL)
     }
 
     public mutating func addInput(input: DogecoinInput) {

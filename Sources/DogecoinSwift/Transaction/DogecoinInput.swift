@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DogecoinInput {
+public class DogecoinInput {
     public var pub: String
     public var path: String
     public let address: String
@@ -33,6 +33,28 @@ public struct DogecoinInput {
         self.sequence = sequence
         self.pub = pub
         self.path = path
+    }
+    
+    func signedInput(transaction: DogecoinTransaction, inputIndex: Int, key: DogecoinKey) -> DogecoinInput?{
+        let sighash: Data = transaction.sighashHelper.createSignatureHash(of: transaction, for: self, inputIndex: inputIndex)
+        var signature: Data
+        do {
+            signature = try Crypto.sign(sighash, privateKey: key.privateKey!)
+        } catch {
+            return nil
+        }
+        signature.appendUInt8(0x01)
+        // Create Signature Script
+        var unlockingScript: Script
+        do {
+            var unlockingScript = try Script()
+                .appendData(signature)
+                .appendData(key.publicKey)
+        } catch {
+            return nil
+        }
+        self.signatureScript = unlockingScript.data
+        return self
     }
     
     func serialized() -> Data {

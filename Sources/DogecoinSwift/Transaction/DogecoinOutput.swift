@@ -20,6 +20,11 @@ public struct DogecoinOutput {
         self.addressData = addressData
     }
     
+    public init?(value: UInt64, addressData: Data) {
+        self.value = value
+        self.addressData = addressData
+    }
+    
     public func serialized() -> Data {
         var data = Data()
         data.appendUInt64(value)
