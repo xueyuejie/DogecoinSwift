@@ -19,7 +19,7 @@ public struct ScriptMachine {
 
     public init() { }
 
-    public static func verifyTransaction(signedTx: BitcoinTransaction, inputIndex: UInt32, input: BitcoinInput, blockTimeStamp: UInt32 = UInt32(NSTimeIntervalSince1970)) throws -> Bool {
+    public static func verifyTransaction(signedTx: DogecoinTransaction, inputIndex: UInt32, input: DogecoinInput, blockTimeStamp: UInt32 = UInt32(NSTimeIntervalSince1970)) throws -> Bool {
         // Sanity check: transaction and its input should be consistent.
         guard inputIndex < signedTx.inputs.count else {
             throw ScriptMachineError.exception("Transaction and valid inputIndex are required for script verification.")
@@ -27,7 +27,7 @@ public struct ScriptMachine {
         let context: ScriptExecutionContext = ScriptExecutionContext(transaction: signedTx, input: input, inputIndex: inputIndex)!
         context.blockTimeStamp = blockTimeStamp
 
-        let txInput: BitcoinInput = signedTx.inputs[Int(inputIndex)]
+        let txInput: DogecoinInput = signedTx.inputs[Int(inputIndex)]
         guard let unlockScript = Script(data: txInput.signatureScript), let lockScript = Script(data: input.signatureScript) else {
             throw ScriptMachineError.error("Both lock script and sig script must be valid.")
         }
@@ -84,7 +84,7 @@ public struct ScriptMachine {
     }
 
     public static func run(_ script: Script, context: ScriptExecutionContext) throws {
-        guard script.data.count <= BTC_MAX_SCRIPT_SIZE else {
+        guard script.data.count <= DOGE_MAX_SCRIPT_SIZE else {
             throw ScriptMachineError.exception("Script binary is too long.")
         }
 

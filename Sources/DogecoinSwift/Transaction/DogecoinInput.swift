@@ -47,7 +47,7 @@ public class DogecoinInput {
         // Create Signature Script
         var unlockingScript: Script
         do {
-            var unlockingScript = try Script()
+            unlockingScript = try Script()
                 .appendData(signature)
                 .appendData(key.publicKey)
         } catch {

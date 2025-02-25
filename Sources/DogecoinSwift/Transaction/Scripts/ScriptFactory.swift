@@ -14,13 +14,13 @@ public struct ScriptFactory {
 
 // MARK: - Standard
 public extension ScriptFactory.Standard {
-    static func buildP2PK(publickey: BitcoinPublicKey) -> Script? {
+    static func buildP2PK(publickey: DogecoinPublicKey) -> Script? {
         return try? Script()
             .appendData(publickey.data)
             .append(.OP_CHECKSIG)
     }
 
-    static func buildP2PKH(address: BitcoinAddress) -> Script? {
+    static func buildP2PKH(address: DogecoinAddress) -> Script? {
         return Script(address:address.address!)
     }
 
@@ -28,10 +28,10 @@ public extension ScriptFactory.Standard {
         return script.toP2SH()
     }
 
-    static func buildMultiSig(publicKeys: [BitcoinPublicKey]) -> Script? {
+    static func buildMultiSig(publicKeys: [DogecoinPublicKey]) -> Script? {
         return Script(publicKeys: publicKeys, signaturesRequired: UInt(publicKeys.count))
     }
-    static func buildMultiSig(publicKeys: [BitcoinPublicKey], signaturesRequired: UInt) -> Script? {
+    static func buildMultiSig(publicKeys: [DogecoinPublicKey], signaturesRequired: UInt) -> Script? {
         return Script(publicKeys: publicKeys, signaturesRequired: signaturesRequired)
     }
 }
@@ -53,7 +53,7 @@ public extension ScriptFactory.LockTime {
     }
 
     // P2PKH + LockTime
-    static func build(address: BitcoinAddress, lockIntervalSinceNow: TimeInterval) -> Script? {
+    static func build(address: DogecoinAddress, lockIntervalSinceNow: TimeInterval) -> Script? {
         guard let p2pkh = Script(address: address.address!) else {
             return nil
         }
@@ -61,7 +61,7 @@ public extension ScriptFactory.LockTime {
         return build(script: p2pkh, lockDate: lockDate)
     }
 
-    static func build(address: BitcoinAddress, lockDate: Date) -> Script? {
+    static func build(address: DogecoinAddress, lockDate: Date) -> Script? {
         guard let p2pkh = Script(address: address.address!) else {
             return nil
         }
@@ -136,7 +136,7 @@ public extension ScriptFactory.Condition {
 */
 public extension ScriptFactory.HashedTimeLockedContract {
     // Base
-    static func build(recipient: BitcoinAddress, sender: BitcoinAddress, lockDate: Date, hash: Data, hashOp: HashOperator) -> Script? {
+    static func build(recipient: DogecoinAddress, sender: DogecoinAddress, lockDate: Date, hash: Data, hashOp: HashOperator) -> Script? {
         guard hash.count == hashOp.hashSize else {
             return nil
         }
@@ -162,18 +162,18 @@ public extension ScriptFactory.HashedTimeLockedContract {
     }
 
     // convenience
-    static func build(recipient: BitcoinAddress, sender: BitcoinAddress, lockIntervalSinceNow: TimeInterval, hash: Data, hashOp: HashOperator) -> Script? {
+    static func build(recipient: DogecoinAddress, sender: DogecoinAddress, lockIntervalSinceNow: TimeInterval, hash: Data, hashOp: HashOperator) -> Script? {
         let lockDate = Date(timeIntervalSinceNow: lockIntervalSinceNow)
         return build(recipient: recipient, sender: sender, lockDate: lockDate, hash: hash, hashOp: hashOp)
     }
 
-    static func build(recipient: BitcoinAddress, sender: BitcoinAddress, lockIntervalSinceNow: TimeInterval, secret: Data, hashOp: HashOperator) -> Script? {
+    static func build(recipient: DogecoinAddress, sender: DogecoinAddress, lockIntervalSinceNow: TimeInterval, secret: Data, hashOp: HashOperator) -> Script? {
         let hash = hashOp.hash(secret)
         let lockDate = Date(timeIntervalSinceNow: lockIntervalSinceNow)
         return build(recipient: recipient, sender: sender, lockDate: lockDate, hash: hash, hashOp: hashOp)
     }
 
-    static func build(recipient: BitcoinAddress, sender: BitcoinAddress, lockDate: Date, secret: Data, hashOp: HashOperator) -> Script? {
+    static func build(recipient: DogecoinAddress, sender: DogecoinAddress, lockDate: Date, secret: Data, hashOp: HashOperator) -> Script? {
         let hash = hashOp.hash(secret)
         return build(recipient: recipient, sender: sender, lockDate: lockDate, hash: hash, hashOp: hashOp)
     }

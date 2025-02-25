@@ -19,7 +19,7 @@ public struct OpCheckMultiSig: OpCodeProtocol {
         // Get numPublicKeys with validation
         try context.assertStackHeightGreaterThanOrEqual(1)
         let numPublicKeys = Int(try context.number(at: -1))
-        guard numPublicKeys >= 0 && numPublicKeys <= BTC_MAX_KEYS_FOR_CHECKMULTISIG else {
+        guard numPublicKeys >= 0 && numPublicKeys <= DOGE_MAX_KEYS_FOR_CHECKMULTISIG else {
             throw OpCodeExecutionError.error("Invalid number of keys for \(name): \(numPublicKeys).")
         }
         try context.incrementOpCount(by: numPublicKeys)
@@ -62,7 +62,7 @@ public struct OpCheckMultiSig: OpCodeProtocol {
             let pubkeyData: Data = publicKeys.removeFirst()
             let sigData: Data = signatures[0]
             do {
-                let valid = try BitcoinPublicKey.verifySigData(for: tx, inputIndex: Int(context.inputIndex), input: input, sigData: sigData, pubKeyData: pubkeyData)
+                let valid = try DogecoinPublicKey.verifySigData(for: tx, inputIndex: Int(context.inputIndex), input: input, sigData: sigData, pubKeyData: pubkeyData)
                 if valid {
                     signatures.removeFirst()
                 }

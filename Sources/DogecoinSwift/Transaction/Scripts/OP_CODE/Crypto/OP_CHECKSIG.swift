@@ -16,7 +16,7 @@ public struct OpCheckSig: OpCodeProtocol {
         guard let tx = context.transaction, let input = context.input else {
             throw OpCodeExecutionError.error("The transaction or the utxo to verify is not set.")
         }
-        let valid = try BitcoinPublicKey.verifySigData(for: tx, inputIndex: Int(context.inputIndex), input: input ,sigData: sigData, pubKeyData: pubkeyData)
+        let valid = try DogecoinPublicKey.verifySigData(for: tx, inputIndex: Int(context.inputIndex), input: input ,sigData: sigData, pubKeyData: pubkeyData)
         context.pushToStack(valid)
     }
 }

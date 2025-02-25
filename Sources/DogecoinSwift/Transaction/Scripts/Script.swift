@@ -43,7 +43,7 @@ public class Script {
 
     // Multisignature script attribute.
     // If multisig script is not detected, this is nil
-    public typealias MultisigVariables = (nSigRequired: UInt, publickeys: [BitcoinPublicKey])
+    public typealias MultisigVariables = (nSigRequired: UInt, publickeys: [DogecoinPublicKey])
     public var multisigRequirements: MultisigVariables?
 
     public init() {
@@ -55,7 +55,7 @@ public class Script {
     }
 
     public convenience init?(data: Data) {
-        // It's important to keep around original data to correctly identify the size of the script for BTC_MAX_SCRIPT_SIZE check
+        // It's important to keep around original data to correctly identify the size of the script for DOGE_MAX_SCRIPT_SIZE check
         // and to correctly calculate hash for the signature because in BitcoinQT scripts are not re-serialized/canonicalized.
         do {
             let chunks = try Script.parseData(data)
@@ -71,67 +71,20 @@ public class Script {
     }
     
     public convenience init?(address: String) {
-        guard let (bip,addressdata) = Self.addressData(address: address) else {
-            return nil
-        }
-        if bip == BitcoinBIP.bip49 {
-            var data = Data()
-            data.appendUInt8(OpCode.OP_HASH160.value)
-            data.appendUInt8(UInt8(addressdata.count))
-            data.appendData(addressdata)
-            data.appendUInt8(OpCode.OP_EQUAL.value)
-            self.init(data: data)
-        } else if bip == BitcoinBIP.bip44 {
-            // OP_DUP OP_HASH160 <hash> OP_EQUALVERIFY OP_CHECKSIG
-            var data = Data()
-            data.appendUInt8(OpCode.OP_DUP.value)
-            data.appendUInt8(OpCode.OP_HASH160.value)
-            data.appendUInt8(UInt8(addressdata.count))
-            data.appendData(addressdata)
-            data.appendUInt8(OpCode.OP_EQUALVERIFY.value)
-            data.appendUInt8(OpCode.OP_CHECKSIG.value)
-            self.init(data: data)
-        } else if bip == BitcoinBIP.bip86 {
-            self.init(data: OpCode.segWitOutputScript(addressdata, versionByte: 1))
-        } else if bip == BitcoinBIP.bip84 {
-            self.init(data: OpCode.segWitOutputScript(addressdata, versionByte: 0))
-        } else {
-            return nil
-        }
+        var addressData = address.base58DecodedData
+         addressData.remove(at: 0)
+        var data = Data()
+        data.appendUInt8(OpCode.OP_DUP.value)
+        data.appendUInt8(OpCode.OP_HASH160.value)
+        data.appendUInt8(UInt8(addressData.count))
+        data.appendData(addressData)
+        data.appendUInt8(OpCode.OP_EQUALVERIFY.value)
+        data.appendUInt8(OpCode.OP_CHECKSIG.value)
+        self.init(data: data)
     }
-
-    public static func addressData(address:String,network:BitcoinNetwork = .mainnet) -> (BitcoinBIP,Data)? {
-        if BitcoinScriptHashAddress.isValidAddress(address, network: network) {
-            guard var data = BitcoinScriptHashAddress.decodeAddress(address) else {
-                return nil
-            }
-            data.remove(at: 0)
-            data.removeLast(4)
-            return (BitcoinBIP.bip49,data)
-        } else if BitcoinPublicKeyAddress.isValidAddress(address,network: network) {
-            guard var data = BitcoinPublicKeyAddress.decodeAddress(address) else {
-                return nil
-            }
-            data.remove(at: 0)
-            return (BitcoinBIP.bip44,data)
-        } else if BitcoinTaprootAddress.isValidAddress(address,network: network) {
-            guard let data = BitcoinTaprootAddress.decodeAddress(address) else {
-                return nil
-            }
-            return (BitcoinBIP.bip86,data)
-        } else if BitcoinNativeSegwitAddress.isValidAddress(address,network: network) {
-            guard let data = BitcoinNativeSegwitAddress.decodeAddress(address) else {
-                return nil
-            }
-            return (BitcoinBIP.bip84,data)
-        } else {
-            return nil
-        }
-    }
-    
     
     // OP_<M> <pubkey1> ... <pubkeyN> OP_<N> OP_CHECKMULTISIG
-    public convenience init?(publicKeys: [BitcoinPublicKey], signaturesRequired: UInt) {
+    public convenience init?(publicKeys: [DogecoinPublicKey], signaturesRequired: UInt) {
         // First make sure the arguments make sense.
         // We need at least one signature
         guard signaturesRequired > 0 else {
@@ -303,12 +256,12 @@ public class Script {
             return
         }
 
-        var pubkeys: [BitcoinPublicKey] = []
+        var pubkeys: [DogecoinPublicKey] = []
         for i in 0...n {
             guard let data = pushedData(at: i) else {
                 return
             }
-            let pubkey = BitcoinPublicKey(bytes: data)
+            let pubkey = DogecoinPublicKey(bytes: data)
             pubkeys.append(pubkey)
         }
 
@@ -496,7 +449,7 @@ extension Script {
         return script.data
     }
 
-    public static func buildPublicKeyUnlockingScript(signature: Data, pubkey: BitcoinPublicKey, hashType: SighashType) -> Data {
+    public static func buildPublicKeyUnlockingScript(signature: Data, pubkey: DogecoinPublicKey, hashType: SighashType) -> Data {
         var data: Data = Data([UInt8(signature.count + 1)])
         data.appendData(signature)
         data.appendUInt8(hashType.uint8)
@@ -513,7 +466,7 @@ extension Script {
 
     public static func getPublicKeyHash(from script: Data) -> Data {
         //TODO: witnessV0PubKeyHashLen = 22
-        // https://github.com/btcsuite/btcd/blob/master/txscript/pkscript.go#L42
+        // https://github.com/DOGEsuite/DOGEd/blob/master/txscript/pkscript.go#L42
 
         return script[3..<23]
     }

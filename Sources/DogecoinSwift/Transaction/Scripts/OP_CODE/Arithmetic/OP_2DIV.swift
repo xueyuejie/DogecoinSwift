@@ -10,11 +10,11 @@ public struct Op2Div: OpCodeProtocol {
     }
 
     // (in -- out)
-//     public func mainProcess(_ context: ScriptExecutionContext) throws {
-//        try context.assertStackHeightGreaterThanOrEqual(1)
-//
-//        let input = try context.number(at: -1)
-//        context.stack.removeLast()
-//        try context.pushToStack(input / 2)
-//    }
+     public func mainProcess(_ context: ScriptExecutionContext) throws {
+        try context.assertStackHeightGreaterThanOrEqual(1)
+
+        let input = try context.number(at: -1)
+        context.stack.removeLast()
+        try context.pushToStack(input / 2)
+    }
 }

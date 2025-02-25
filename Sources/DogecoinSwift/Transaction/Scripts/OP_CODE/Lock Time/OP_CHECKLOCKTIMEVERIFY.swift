@@ -30,8 +30,8 @@ public struct OpCheckLockTimeVerify: OpCodeProtocol {
         // There are two kinds of nLockTime: lock-by-blockheight and lock-by-blocktime, distinguished by whether nLockTime < LOCKTIME_THRESHOLD.
         //
         // We want to compare apples to apples, so fail the script unless the type of nLockTime being tested is the same as the nLockTime in the transaction.
-        guard (tx.lockTime < BTC_LOCKTIME_THRESHOLD && nLockTime < BTC_LOCKTIME_THRESHOLD) ||
-            (tx.lockTime >= BTC_LOCKTIME_THRESHOLD && nLockTime >= BTC_LOCKTIME_THRESHOLD) else {
+        guard (tx.lockTime < DOGE_LOCKTIME_THRESHOLD && nLockTime < DOGE_LOCKTIME_THRESHOLD) ||
+            (tx.lockTime >= DOGE_LOCKTIME_THRESHOLD && nLockTime >= DOGE_LOCKTIME_THRESHOLD) else {
             throw OpCodeExecutionError.error("tx.lockTime and nLockTime should be the same kind.")
         }
 

@@ -18,7 +18,7 @@ public struct DogecoinSignatureHashHelper {
         self.hashType = hashType
     }
 
-    /// Create the signature hash of the BTC transaction
+    /// Create the signature hash of the DOGE transaction
     ///
     /// - Parameters:
     ///   - tx: Transaction to be signed

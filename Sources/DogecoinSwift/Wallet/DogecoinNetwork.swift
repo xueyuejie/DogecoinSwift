@@ -7,6 +7,13 @@
 
 import Foundation
 
+public enum DogecoinBIP: String {
+    case bip44
+    case bip49
+    case bip86
+    case bip84
+}
+
 public enum DogecoinNetwork: String {
     case mainnet
     case testnet

@@ -18,9 +18,9 @@ public class ScriptExecutionContext {
     public internal(set) var opCount: Int = 0
 
     // Transaction, utxo, index for CHECKSIG operations
-    public private(set) var transaction: BitcoinTransaction?
-    public private(set) var input: BitcoinInput?
-    public private(set) var txinToVerify: BitcoinInput?
+    public private(set) var transaction: DogecoinTransaction?
+    public private(set) var input: DogecoinInput?
+    public private(set) var txinToVerify: DogecoinInput?
     public private(set) var inputIndex: UInt32 = 0xffffffff
 
     // A timestamp of the current block. Default is current timestamp.
@@ -38,7 +38,7 @@ public class ScriptExecutionContext {
     public init(isDebug: Bool = false) {
         self.verbose = isDebug
     }
-    public init?(transaction: BitcoinTransaction, input: BitcoinInput, inputIndex: UInt32) {
+    public init?(transaction: DogecoinTransaction, input: DogecoinInput, inputIndex: UInt32) {
         guard transaction.inputs.count > inputIndex else {
             return nil
         }
@@ -52,7 +52,7 @@ public class ScriptExecutionContext {
     }
 
     public func shouldVerifyP2SH() -> Bool {
-        return blockTimeStamp >= BTC_BIP16_TIMESTAMP
+        return blockTimeStamp >= DOGE_BIP16_TIMESTAMP
     }
 
     private func normalized(_ index: Int) -> Int {
@@ -67,7 +67,7 @@ public class ScriptExecutionContext {
         stack.append(BigNumber(n.littleEndian).data)
     }
     public func pushToStack(_ data: Data) throws {
-        guard data.count <= BTC_MAX_SCRIPT_ELEMENT_SIZE else {
+        guard data.count <= DOGE_MAX_SCRIPT_ELEMENT_SIZE else {
             throw ScriptMachineError.error("PushedData size is too big.")
         }
         stack.append(data)
@@ -96,7 +96,7 @@ public class ScriptExecutionContext {
     // OpCount
     public func incrementOpCount(by i: Int = 1) throws {
         opCount += i
-        guard opCount <= BTC_MAX_OPS_PER_SCRIPT else {
+        guard opCount <= DOGE_MAX_OPS_PER_SCRIPT else {
             throw OpCodeExecutionError.error("Exceeded the allowed number of operations per script.")
         }
     }
@@ -155,7 +155,7 @@ extension ScriptExecutionContext: CustomStringConvertible {
     public var description: String {
         var desc: String = ""
         for data in stack.reversed() {
-            let hex = data.hex
+            let hex = data.toHexString()
             var contents: String = "0x" + hex
 
             if hex.count > 20 {
