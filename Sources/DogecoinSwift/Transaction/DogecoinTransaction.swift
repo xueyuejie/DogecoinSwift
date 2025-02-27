@@ -50,6 +50,16 @@ public struct DogecoinTransaction {
         outputs.append(output)
     }
     
+    public mutating func sign(with keys:[DogecoinKey]) throws {
+        for (i,input) in inputs.enumerated() {
+            let key = keys[i]
+            guard let signedInput = input.signedInput(transaction: self, inputIndex: i, key: key) else {
+                throw DogecoinError.signError
+            }
+            self.inputs[i] = signedInput
+        }
+    }
+    
     public func serialized() -> Data {
         var data = Data()
         data.appendUInt32(version)
