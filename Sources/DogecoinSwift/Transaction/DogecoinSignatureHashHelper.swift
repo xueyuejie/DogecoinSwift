@@ -93,7 +93,7 @@ public struct DogecoinSignatureHashHelper {
             // Only lock-in the txout payee at same index as txin.
             // This is equivalent to replacing outputs with (i-1) empty outputs and a i-th original one.
             let myOutput = tx.outputs[inputIndex]
-            return Array(repeating: DogecoinOutput(value: 0, addressData: Data())!, count: inputIndex) + [myOutput]
+            return Array(repeating: DogecoinOutput(value: 0, script: Data())!, count: inputIndex) + [myOutput]
         } else {
             return tx.outputs
         }
