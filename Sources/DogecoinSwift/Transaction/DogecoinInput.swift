@@ -35,6 +35,19 @@ public class DogecoinInput {
         self.path = path
     }
     
+    func getInput() -> DogecoinInput {
+        return DogecoinInput(
+            address: self.address,
+            prev_hash: Data(self.prev_hash.reversed()),
+            index: self.index,
+            value: self.value,
+            signatureScript: self.signatureScript,
+            sequence: self.sequence,
+            pub: self.pub,
+            path: self.path
+        )
+    }
+    
     func signedInput(transaction: DogecoinTransaction, inputIndex: Int, key: DogecoinKey) -> DogecoinInput?{
         let sighash: Data = transaction.sighashHelper.createSignatureHash(of: transaction, for: self, inputIndex: inputIndex)
         var signature: Data

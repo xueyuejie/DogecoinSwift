@@ -43,7 +43,7 @@ public struct DogecoinTransaction {
     }
 
     public mutating func addInput(input: DogecoinInput) {
-        inputs.append(input)
+        inputs.append(input.getInput())
     }
     
     public mutating func addOutput(output:DogecoinOutput) {
