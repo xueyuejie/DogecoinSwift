@@ -71,8 +71,10 @@ public class Script {
     }
     
     public convenience init?(address: String) {
-        var addressData = address.base58DecodedData
-         addressData.remove(at: 0)
+        guard var addressData = DogecoinAddress.decodeAddress(address) else {
+            return nil
+        }
+        addressData.remove(at: 0)
         var data = Data()
         data.appendUInt8(OpCode.OP_DUP.value)
         data.appendUInt8(OpCode.OP_HASH160.value)
